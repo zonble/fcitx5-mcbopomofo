@@ -1309,6 +1309,9 @@ void McBopomofoEngine::enterNewState(fcitx::InputContext* context,
   } else if (auto* enclosingNumber =
                  dynamic_cast<InputStates::EnclosingNumber*>(currentPtr)) {
     handleEnclosingNumberState(context, prevPtr, enclosingNumber);
+  } else if (auto* customMenu =
+                 dynamic_cast<InputStates::CustomMenu*>(currentPtr)) {
+    handleCandidatesState(context, prevPtr, enclosingNumber);
   }
 }
 
@@ -1574,6 +1577,7 @@ void McBopomofoEngine::handleCandidatesState(fcitx::InputContext* context,
   } else if (customMenu != nullptr) {
     for (const auto& entry : customMenu->entries) {
       std::string displayText = entry.name;
+      // to do use custom menu word
 #ifdef USE_LEGACY_FCITX5_API
       fcitx::CandidateWord* candidate = new McBopomofoDirectInsertWord(
           fcitx::Text(displayText), displayText, callback);
