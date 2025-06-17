@@ -899,7 +899,10 @@ bool McBopomofoEngine::handleCandidateKeyEvent(
       auto candidate = choosingCandidate->candidates[selectedCandidateIndex];
       std::string phrase = candidate.value;
       std::string reading = candidate.reading;
-
+      // If the reading doesn't contain a hyphen, return true
+      if (reading.find('-') == std::string::npos) {
+        return true;
+      }
       std::vector<InputStates::CustomMenu::MenuEntry> entries;
       InputStates::CustomMenu::MenuEntry confirmEntry(
           _("Boost"), [this, phrase, reading, stateCallback]() {
@@ -940,6 +943,10 @@ bool McBopomofoEngine::handleCandidateKeyEvent(
       auto candidate = choosingCandidate->candidates[selectedCandidateIndex];
       std::string phrase = candidate.value;
       std::string reading = candidate.reading;
+      // If the reading doesn't contain a hyphen, return true
+      if (reading.find('-') == std::string::npos) {
+        return true;
+      }
 
       std::vector<InputStates::CustomMenu::MenuEntry> entries;
       InputStates::CustomMenu::MenuEntry confirmEntry(
