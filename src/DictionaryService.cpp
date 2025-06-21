@@ -34,6 +34,7 @@
 #include <sstream>
 #include <utility>
 
+#include "Fmt.h"
 #include "Log.h"
 
 constexpr char kDataPath[] = "data/mcbopomofo-dictionary-service.json";
@@ -100,8 +101,8 @@ class HttpBasedDictionaryService : public McBopomofo::DictionaryService {
   }
 
   std::string textForMenu(std::string selectedString) const override {
-    auto translated = _("Look up \"{0}\" in {1}");
-    return fmt::format(fmt::runtime(translated), selectedString, name_);
+    return fmt::format(FMT_RUNTIME(_("Look up \"{0}\" in {1}")), selectedString,
+                       name_);
   }
 
  private:

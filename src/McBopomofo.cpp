@@ -37,6 +37,7 @@
 #include <utility>
 #include <vector>
 
+#include "Fmt.h"
 #include "Key.h"
 #include "Log.h"
 #include "UTF8Helper.h"
@@ -345,16 +346,19 @@ class KeyHandlerLocalizedString : public KeyHandler::LocalizedStrings {
  public:
   std::string cursorIsBetweenSyllables(
       const std::string& prevReading, const std::string& nextReading) override {
-    return fmt::format(_("Cursor is between syllables {0} and {1}"),
-                       prevReading, nextReading);
+    return fmt::format(
+        FMT_RUNTIME(_("Cursor is between syllables {0} and {1}")), prevReading,
+        nextReading);
   }
 
   std::string syllablesRequired(size_t syllables) override {
-    return fmt::format(_("{0} syllables required"), std::to_string(syllables));
+    return fmt::format(FMT_RUNTIME(_("{0} syllables required")),
+                       std::to_string(syllables));
   }
 
   std::string syllablesMaximum(size_t syllables) override {
-    return fmt::format(_("{0} syllables maximum"), std::to_string(syllables));
+    return fmt::format(FMT_RUNTIME(_("{0} syllables maximum")),
+                       std::to_string(syllables));
   }
 
   std::string phraseAlreadyExists() override {
@@ -368,8 +372,8 @@ class KeyHandlerLocalizedString : public KeyHandler::LocalizedStrings {
   std::string markedWithSyllablesAndStatus(const std::string& marked,
                                            const std::string& readingUiText,
                                            const std::string& status) override {
-    return fmt::format(_("Marked: {0}, syllables: {1}, {2}"), marked,
-                       readingUiText, status);
+    return fmt::format(FMT_RUNTIME(_("Marked: {0}, syllables: {1}, {2}")),
+                       marked, readingUiText, status);
   }
 };
 
@@ -931,7 +935,9 @@ bool McBopomofoEngine::handleCandidateKeyEvent(
             });
         entries.emplace_back(std::move(confirmEntry));
         title = fmt::format(
-            _("Do you want to boost the score of the phrase \"{}\"?"), phrase);
+            FMT_RUNTIME(
+                _("Do you want to boost the score of the phrase \"{}\"?")),
+            phrase);
       } else if (isMinusKey) {
         InputStates::CustomMenu::MenuEntry confirmEntry(
             _("Exclude"), [this, phrase, reading, stateCallback]() {
@@ -940,8 +946,9 @@ bool McBopomofoEngine::handleCandidateKeyEvent(
               stateCallback(std::move(inputting));
             });
         entries.emplace_back(std::move(confirmEntry));
-        title =
-            fmt::format(_("Do you want to exclude the phrase \"{}\"?"), phrase);
+        title = fmt::format(
+            FMT_RUNTIME(_("Do you want to exclude the phrase \"{}\"?")),
+            phrase);
       }
 
       InputStates::CustomMenu::MenuEntry cancelEntry(
@@ -1509,10 +1516,11 @@ void McBopomofoEngine::handleCandidatesState(fcitx::InputContext* context,
     }
   } else if (showingCharInfo != nullptr) {
     std::vector<std::string> menu;
-    menu.emplace_back(fmt::format(_("UTF8 String Length: {0}"),
+    menu.emplace_back(fmt::format(FMT_RUNTIME(_("UTF8 String Length: {0}")),
                                   showingCharInfo->selectedPhrase.length()));
     size_t count = CodePointCount(showingCharInfo->selectedPhrase);
-    menu.emplace_back(fmt::format(_("Code Point Count: {0}"), count));
+    menu.emplace_back(
+        fmt::format(FMT_RUNTIME(_("Code Point Count: {0}")), count));
 
     for (const auto& menuItem : menu) {
       std::string displayText = menuItem;
