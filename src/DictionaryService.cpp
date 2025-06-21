@@ -101,7 +101,7 @@ class HttpBasedDictionaryService : public McBopomofo::DictionaryService {
 
   std::string textForMenu(std::string selectedString) const override {
     auto translated = _("Look up \"{0}\" in {1}");
-    return fmt::format(translated, selectedString, name_);
+    return fmt::format(fmt::runtime(translated), selectedString, name_);
   }
 
  private:
