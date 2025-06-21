@@ -56,9 +56,7 @@ std::string urlEncode(const std::string& str) {
 
 class CharacterInfoService : public McBopomofo::DictionaryService {
  public:
-  std::string name() const override {
-    return fmt::format(_("Character Information"));
-  }
+  std::string name() const override { return _("Character Information"); }
 
   void lookup(std::string phrase, McBopomofo::InputState* state,
               size_t /*Unused*/,
@@ -77,7 +75,7 @@ class CharacterInfoService : public McBopomofo::DictionaryService {
   }
 
   std::string textForMenu(std::string /*Unused*/) const override {
-    return fmt::format(_("Character Information"));
+    return _("Character Information");
   }
 };
 
