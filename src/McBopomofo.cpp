@@ -37,6 +37,7 @@
 #include <utility>
 #include <vector>
 
+#include "Format.h"
 #include "Key.h"
 #include "Log.h"
 #include "UTF8Helper.h"
@@ -345,16 +346,18 @@ class KeyHandlerLocalizedString : public KeyHandler::LocalizedStrings {
  public:
   std::string cursorIsBetweenSyllables(
       const std::string& prevReading, const std::string& nextReading) override {
-    return fmt::format(_("Cursor is between syllables {0} and {1}"),
+    return fmt::format(FmtRuntime(_("Cursor is between syllables {0} and {1}")),
                        prevReading, nextReading);
   }
 
   std::string syllablesRequired(size_t syllables) override {
-    return fmt::format(_("{0} syllables required"), std::to_string(syllables));
+    return fmt::format(FmtRuntime(_("{0} syllables required")),
+                       std::to_string(syllables));
   }
 
   std::string syllablesMaximum(size_t syllables) override {
-    return fmt::format(_("{0} syllables maximum"), std::to_string(syllables));
+    return fmt::format(FmtRuntime(_("{0} syllables maximum")),
+                       std::to_string(syllables));
   }
 
   std::string phraseAlreadyExists() override {
@@ -368,8 +371,8 @@ class KeyHandlerLocalizedString : public KeyHandler::LocalizedStrings {
   std::string markedWithSyllablesAndStatus(const std::string& marked,
                                            const std::string& readingUiText,
                                            const std::string& status) override {
-    return fmt::format(_("Marked: {0}, syllables: {1}, {2}"), marked,
-                       readingUiText, status);
+    return fmt::format(FmtRuntime(_("Marked: {0}, syllables: {1}, {2}")),
+                       marked, readingUiText, status);
   }
 };
 
@@ -838,6 +841,11 @@ bool McBopomofoEngine::handleCandidateKeyEvent(
 
   bool keyIsCancel = false;
 
+  std::vector<std::string> invalidPrefixes = {
+      "_half_punctuation_", "_ctrl_punctuation_", "_letter_",
+      "_number_",           "_punctuation_",
+  };
+
   // When pressing "?" in the candidate list, tries to look up the candidate in
   // dictionaries.
   if (keyHandler_->inputMode() == McBopomofo::InputMode::McBopomofo &&
@@ -856,6 +864,18 @@ bool McBopomofoEngine::handleCandidateKeyEvent(
         int pageSize = candidateList->size();
         int selectedCandidateIndex =
             page * pageSize + candidateList->cursorIndex();
+        std::string reading =
+            choosingCandidate->candidates[selectedCandidateIndex].reading;
+
+        // If the reading has an invalid prefix, skip dictionary lookup
+        if (std::any_of(invalidPrefixes.begin(), invalidPrefixes.end(),
+                        [&reading](const std::string& prefix) {
+                          return reading.compare(0, prefix.length(), prefix) ==
+                                 0;
+                        })) {
+          return true;
+        }
+
         std::string phrase =
             choosingCandidate->candidates[selectedCandidateIndex].value;
         std::string reading =
@@ -886,6 +906,81 @@ bool McBopomofoEngine::handleCandidateKeyEvent(
     } else if (selectingDictionary != nullptr || showingCharInfo != nullptr) {
       // Leave selecting dictionary service state.
       keyIsCancel = true;
+    }
+  }
+
+  if (keyHandler_->inputMode() == McBopomofo::InputMode::McBopomofo) {
+    auto* choosingCandidate =
+        dynamic_cast<InputStates::ChoosingCandidate*>(state_.get());
+    bool isPlusKey = key.check(FcitxKey_plus) || key.check(FcitxKey_equal);
+    bool isMinusKey =
+        key.check(FcitxKey_minus) || key.check(FcitxKey_underscore);
+    if (choosingCandidate != nullptr && (isPlusKey || isMinusKey)) {
+      int page = candidateList->currentPage();
+      int pageSize = candidateList->size();
+      int index = candidateList->cursorIndex();
+      int selectedCandidateIndex = page * pageSize + index;
+      auto candidate = choosingCandidate->candidates[selectedCandidateIndex];
+      std::string reading = candidate.reading;
+      // If the reading has an invalid prefix, skip dictionary lookup
+      if (std::any_of(invalidPrefixes.begin(), invalidPrefixes.end(),
+                      [&reading](const std::string& prefix) {
+                        return reading.compare(0, prefix.length(), prefix) == 0;
+                      })) {
+        return true;
+      }
+
+      // If the reading doesn't contain a hyphen, return true
+      if (reading.find('-') == std::string::npos) {
+        return true;
+      }
+      std::string phrase = candidate.value;
+      std::string rawValue = candidate.rawValue;
+      if (phrase != rawValue) {
+        return true;
+      }
+
+      std::vector<InputStates::CustomMenu::MenuEntry> entries;
+      std::string title;
+      if (isPlusKey) {
+        InputStates::CustomMenu::MenuEntry confirmEntry(
+            _("Boost"), [this, phrase, reading, stateCallback]() {
+              keyHandler_->boostPhrase(reading, phrase);
+              auto inputting = keyHandler_->buildInputtingState();
+              stateCallback(std::move(inputting));
+            });
+        entries.emplace_back(std::move(confirmEntry));
+        title = fmt::format(
+            FmtRuntime(
+                _("Do you want to boost the score of the phrase \"{}\"?")),
+            phrase);
+      } else if (isMinusKey) {
+        InputStates::CustomMenu::MenuEntry confirmEntry(
+            _("Exclude"), [this, phrase, reading, stateCallback]() {
+              keyHandler_->excludePhrase(reading, phrase);
+              auto inputting = keyHandler_->buildInputtingState();
+              stateCallback(std::move(inputting));
+            });
+        entries.emplace_back(std::move(confirmEntry));
+        title = fmt::format(
+            FmtRuntime(_("Do you want to exclude the phrase \"{}\"?")), phrase);
+      }
+
+      InputStates::CustomMenu::MenuEntry cancelEntry(
+          _("Cancel"), [this, stateCallback]() {
+            auto inputting = keyHandler_->buildInputtingState();
+            auto choosing = keyHandler_->buildChoosingCandidateState(
+                inputting.get(), keyHandler_->candidateCursorIndex());
+            stateCallback(std::move(inputting));
+            stateCallback(std::move(choosing));
+          });
+      entries.push_back(std::move(cancelEntry));
+      auto copy =
+          std::make_unique<InputStates::ChoosingCandidate>(*choosingCandidate);
+      auto confirm = std::make_unique<InputStates::CustomMenu>(
+          std::move(copy), std::move(title), std::move(entries));
+      stateCallback(std::move(confirm));
+      return true;
     }
   }
 
@@ -1525,10 +1620,11 @@ void McBopomofoEngine::handleCandidatesState(fcitx::InputContext* context,
     }
   } else if (showingCharInfo != nullptr) {
     std::vector<std::string> menu;
-    menu.emplace_back(fmt::format(_("UTF8 String Length: {0}"),
+    menu.emplace_back(fmt::format(FmtRuntime(_("UTF8 String Length: {0}")),
                                   showingCharInfo->selectedPhrase.length()));
     size_t count = CodePointCount(showingCharInfo->selectedPhrase);
-    menu.emplace_back(fmt::format(_("Code Point Count: {0}"), count));
+    menu.emplace_back(
+        fmt::format(FmtRuntime(_("Code Point Count: {0}")), count));
 
     for (const auto& menuItem : menu) {
       std::string displayText = menuItem;
