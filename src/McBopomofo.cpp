@@ -913,7 +913,11 @@ bool McBopomofoEngine::handleCandidateKeyEvent(
   if (associatedPhrases != nullptr && associatedPhrases->autoTriggered) {
     if (key.check(FcitxKey_Tab)) {
       auto expanded = std::make_unique<InputStates::AssociatedPhrases>(
-          *associatedPhrases, false);
+          std::move(associatedPhrases->previousState),
+          associatedPhrases->prefixCursorIndex,
+          associatedPhrases->prefixReading, associatedPhrases->prefixValue,
+          associatedPhrases->selectedCandidateIndex,
+          associatedPhrases->candidates, false);
       stateCallback(std::move(expanded));
       return true;
     }

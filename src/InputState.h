@@ -251,19 +251,6 @@ struct AssociatedPhrases : NotEmpty {
         selectedCandidateIndex(selIndex),
         candidates(std::move(cs)),
         autoTriggered(autoTriggered) {}
-
-  AssociatedPhrases(AssociatedPhrases& other, bool autoTriggered = false)
-      : NotEmpty(other.previousState->composingBuffer,
-                 other.previousState->cursorIndex,
-                 other.previousState->tooltip),
-        previousState(std::move(other.previousState)),
-        prefixCursorIndex(other.prefixCursorIndex),
-        prefixReading(other.prefixReading),
-        prefixValue(other.prefixValue),
-        selectedCandidateIndex(other.selectedCandidateIndex),
-        candidates(other.candidates),
-        autoTriggered(autoTriggered) {}
-
   std::unique_ptr<NotEmpty> previousState;
   size_t prefixCursorIndex;
   std::string prefixReading;
