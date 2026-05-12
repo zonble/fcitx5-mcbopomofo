@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.12)
 project(mcbopomofo VERSION 3.0)
 
+set(CMAKE_CXX_STANDARD 20)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+
 find_package(PkgConfig REQUIRED)
 find_package(Fcitx5Core REQUIRED)
 find_package(Fcitx5Utils REQUIRED)
@@ -47,9 +50,6 @@ set(MCBOPOMOFO_LIB_SOURCES
     NumberInputHelper.h
     NumberInputHelper.cpp
 )
-
-# https://stackoverflow.com/questions/26549137/shared-library-on-linux-and-fpic-error
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 
 # Setup some compiler option that is generally useful and compatible with Fcitx 5 (C++17)
 include("${FCITX_INSTALL_CMAKECONFIG_DIR}/Fcitx5Utils/Fcitx5CompilerSettings.cmake")
@@ -105,7 +105,7 @@ if (ENABLE_TEST)
 
         if (NOT GTest_FOUND)
             # Specify release version from https://github.com/google/googletest/releases
-            set(GTEST_VERSION "v1.14.0")
+            set(GTEST_VERSION "v1.17.0")
             MESSAGE(STATUS "Fetching GoogleTest ${GTEST_VERSION} from GitHub")
             # Let CMake fetch Google Test for us.
             # https://github.com/google/googletest/tree/main/googletest#incorporating-into-an-existing-cmake-project
