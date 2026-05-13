@@ -71,7 +71,8 @@ class KeyHandler {
 
   bool handleAssociatedPhrases(InputStates::Inputting* state,
                                StateCallback stateCallback,
-                               ErrorCallback errorCallback, bool useShiftKey);
+                               ErrorCallback errorCallback,
+                               bool autoTriggered = false);
 
   void handleForceCommitAndReset(StateCallback stateCallback);
 

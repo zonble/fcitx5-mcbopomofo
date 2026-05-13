@@ -784,7 +784,7 @@ void KeyHandler::setBopomofoFontAnnotationSupportEnabled(bool enabled) {
 bool KeyHandler::handleAssociatedPhrases(InputStates::Inputting* state,
                                          StateCallback stateCallback,
                                          ErrorCallback errorCallback,
-                                         bool useShiftKey) {
+                                         bool autoTriggered) {
   size_t cursor = grid_.cursor();
 
   // We need to find the node *before* the cursor, so cursor must be >= 1.
@@ -881,16 +881,15 @@ bool KeyHandler::handleAssociatedPhrases(InputStates::Inputting* state,
       auto associatedPhrasesState = buildAssociatedPhrasesState(
           buildInputtingState(), prefixCursorIndex,
           AssociatedPhrasesV2::CombineReadings(rdSlice), value.str(),
-          /*selectedCandidateIndex=*/0, useShiftKey);
+          /*selectedCandidateIndex=*/0, autoTriggered);
       if (associatedPhrasesState != nullptr) {
         stateCallback(std::move(associatedPhrasesState));
         return true;
       }
     }
-    errorCallback();
   }
 
-  if (!useShiftKey) {
+  if (!autoTriggered) {
     errorCallback();
   }
 
