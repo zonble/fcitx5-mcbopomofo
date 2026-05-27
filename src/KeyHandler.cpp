@@ -32,6 +32,7 @@
 #include <vector>
 
 #include "Big5Utils/Big5Utils.h"
+#include "BopomofoBraille/Converter.h"
 #include "NumberInputHelper.h"
 #include "UTF8Helper.h"
 
@@ -366,6 +367,22 @@ bool KeyHandler::handle(Key key, McBopomofo::InputState* state,
       }
       if (ctrlEnterKey_ == KeyHandlerCtrlEnter::OutputHanyuPinyin) {
         auto output = getHanyuPinyin();
+        auto committingState =
+            std::make_unique<InputStates::Committing>(output);
+        stateCallback(std::move(committingState));
+        reset();
+        return true;
+      }
+      if (ctrlEnterKey_ == KeyHandlerCtrlEnter::OutputTaiwanBrailleUnicode) {
+        auto output = getTaiwanBraille(BrailleType::UNICODE);
+        auto committingState =
+            std::make_unique<InputStates::Committing>(output);
+        stateCallback(std::move(committingState));
+        reset();
+        return true;
+      }
+      if (ctrlEnterKey_ == KeyHandlerCtrlEnter::OutputTaiwanBrailleAscii) {
+        auto output = getTaiwanBraille(BrailleType::ASCII);
         auto committingState =
             std::make_unique<InputStates::Committing>(output);
         stateCallback(std::move(committingState));
@@ -1386,6 +1403,26 @@ std::string KeyHandler::getHanyuPinyin() {
       std::string hanyuPinyin = syllable.HanyuPinyinString(false, false);
       composed += hanyuPinyin;
     }
+  }
+  return composed;
+}
+
+std::string KeyHandler::getTaiwanBraille(BrailleType type) {
+  std::string composed;
+  for (const auto& node : latestWalk_.nodes) {
+    std::string key = node->reading();
+
+    // Punctuation and symbols use private unigram keys; convert their surface
+    // value instead of the synthetic reading key.
+    if (key.rfind(std::string("_"), 0) == 0) {
+      composed +=
+          BopomofoBrailleConverter::convertBpmfToBraille(node->value(), type);
+      continue;
+    }
+
+    key.erase(std::remove(key.begin(), key.end(), kJoinSeparator[0]),
+              key.end());
+    composed += BopomofoBrailleConverter::convertBpmfToBraille(key, type);
   }
   return composed;
 }

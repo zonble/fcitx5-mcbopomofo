@@ -344,7 +344,15 @@ msgstr ""
 msgid "output_hanyu_pinyin"
 msgstr ""
 
-#: src/McBopomofo.h:104
+#: src/McBopomofo.h:97
+msgid "output_taiwan_braille_unicode"
+msgstr ""
+
+#: src/McBopomofo.h:98
+msgid "output_taiwan_braille_ascii"
+msgstr ""
+
+#: src/McBopomofo.h:106
 msgid "Bopomofo Keyboard Layout"
 msgstr ""
 

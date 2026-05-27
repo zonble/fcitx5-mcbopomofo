@@ -351,7 +351,15 @@ msgstr "Input HTML Ruby Text"
 msgid "output_hanyu_pinyin"
 msgstr "Hanyu Pinyin"
 
-#: src/McBopomofo.h:104
+#: src/McBopomofo.h:97
+msgid "output_taiwan_braille_unicode"
+msgstr "Taiwan Braille Unicode"
+
+#: src/McBopomofo.h:98
+msgid "output_taiwan_braille_ascii"
+msgstr "Taiwan Braille ASCII"
+
+#: src/McBopomofo.h:106
 msgid "Bopomofo Keyboard Layout"
 msgstr "Bopomofo Keyboard Layout"
 

@@ -352,7 +352,15 @@ msgstr "輸出加上注音標示的 HTML (Ruby Text)"
 msgid "output_hanyu_pinyin"
 msgstr "漢語拼音"
 
-#: src/McBopomofo.h:104
+#: src/McBopomofo.h:97
+msgid "output_taiwan_braille_unicode"
+msgstr "台灣點字 unicode"
+
+#: src/McBopomofo.h:98
+msgid "output_taiwan_braille_ascii"
+msgstr "台灣點字 ascii"
+
+#: src/McBopomofo.h:106
 msgid "Bopomofo Keyboard Layout"
 msgstr "注音鍵盤配置"
 
