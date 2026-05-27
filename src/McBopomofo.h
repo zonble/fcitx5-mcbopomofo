@@ -229,7 +229,18 @@ FCITX_CONFIGURATION(
                 fcitx::stringutils::joinPath(
                     McBopomofo::fcitx5_compat::userDirectory(), "mcbopomofo"),
                 "\"", "\"\"\""),
-            "\"")};);
+            "\"")};
+
+    fcitx::ExternalOption userManual{
+        this, "UserManual", _("User Manual"),
+        "xdg-open "
+        "\"https://github.com/openvanilla/fcitx5-mcbopomofo/wiki/使用手冊\""};
+
+    fcitx::ExternalOption webTools{
+        this, "WebTools", _("Web Tools"),
+        fcitx::stringutils::concat(
+            "xdg-open "
+            "\"https://openvanilla.github.io/McBopomofoWeb/\"")};);
 
 class McBopomofoEngine : public fcitx::InputMethodEngine {
  public:
@@ -266,7 +277,7 @@ class McBopomofoEngine : public fcitx::InputMethodEngine {
   // StateSequence, each state in the sequence is processed via enterNewState
   // in order.
   void handleStateOrSequence(fcitx::InputContext* context,
-                              std::unique_ptr<InputState> newState);
+                             std::unique_ptr<InputState> newState);
 
   // Methods below enterNewState raw pointers as they don't affect ownership.
   void handleEmptyState(fcitx::InputContext* context, InputState* prev,

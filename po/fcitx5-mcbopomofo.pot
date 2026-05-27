@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-mcbopomofo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-27 19:36+0800\n"
+"POT-Creation-Date: 2026-05-27 20:44+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -448,6 +448,14 @@ msgstr ""
 
 #: src/McBopomofo.h:225
 msgid "User Data"
+msgstr ""
+
+#: src/McBopomofo.h:235
+msgid "User Manual"
+msgstr ""
+
+#: src/McBopomofo.h:240
+msgid "Web Tools"
 msgstr ""
 
 #: src/DictionaryService.cpp:64 src/DictionaryService.cpp:83
