@@ -93,7 +93,9 @@ constexpr char kDefaultAddPhraseHookPath[] =
 FCITX_CONFIG_ENUM_NAME_WITH_I18N(KeyHandlerCtrlEnter, N_("disabled"),
                                  N_("output_bpmf_reading"),
                                  N_("output_html_ruby_text"),
-                                 N_("output_hanyu_pinyin"));
+                                 N_("output_hanyu_pinyin"),
+                                 N_("output_taiwan_braille_unicode"),
+                                 N_("output_taiwan_braille_ascii"));
 
 FCITX_CONFIGURATION(
     McBopomofoConfig,
@@ -227,7 +229,18 @@ FCITX_CONFIGURATION(
                 fcitx::stringutils::joinPath(
                     McBopomofo::fcitx5_compat::userDirectory(), "mcbopomofo"),
                 "\"", "\"\"\""),
-            "\"")};);
+            "\"")};
+
+    fcitx::ExternalOption userManual{
+        this, "UserManual", _("User Manual"),
+        "xdg-open "
+        "\"https://github.com/openvanilla/fcitx5-mcbopomofo/wiki/使用手冊\""};
+
+    fcitx::ExternalOption webTools{
+        this, "WebTools", _("Web Tools"),
+        fcitx::stringutils::concat(
+            "xdg-open "
+            "\"https://openvanilla.github.io/McBopomofoWeb/\"")};);
 
 class McBopomofoEngine : public fcitx::InputMethodEngine {
  public:
@@ -264,7 +277,7 @@ class McBopomofoEngine : public fcitx::InputMethodEngine {
   // StateSequence, each state in the sequence is processed via enterNewState
   // in order.
   void handleStateOrSequence(fcitx::InputContext* context,
-                              std::unique_ptr<InputState> newState);
+                             std::unique_ptr<InputState> newState);
 
   // Methods below enterNewState raw pointers as they don't affect ownership.
   void handleEmptyState(fcitx::InputContext* context, InputState* prev,

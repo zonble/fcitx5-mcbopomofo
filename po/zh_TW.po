@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-mcbopomofo v0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-04 10:22-0800\n"
+"POT-Creation-Date: 2026-05-27 20:44+0800\n"
 "PO-Revision-Date: 2022-12-28 21:39+0800\n"
 "Last-Translator: Chaoting Liu <brli@chakralinux.org>\n"
 "Language-Team: none\n"
@@ -18,55 +18,59 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: src/McBopomofo.cpp:351
+#: src/McBopomofo.cpp:369
+#, c++-format
 msgid "Cursor is between syllables {0} and {1}"
 msgstr "游標在「{0}」與「{1}」之間"
 
-#: src/McBopomofo.cpp:356
+#: src/McBopomofo.cpp:374
+#, c++-format
 msgid "{0} syllables required"
 msgstr "至少需要選取{0}個字"
 
-#: src/McBopomofo.cpp:361
+#: src/McBopomofo.cpp:379
+#, c++-format
 msgid "{0} syllables maximum"
 msgstr "最多只能選取{0}個字"
 
-#: src/McBopomofo.cpp:366
+#: src/McBopomofo.cpp:384
 msgid "phrase already exists"
 msgstr "詞庫已經有這個詞"
 
-#: src/McBopomofo.cpp:370
+#: src/McBopomofo.cpp:388
 msgid "press Enter to add the phrase"
 msgstr "請按 Enter 加入自訂詞庫"
 
-#: src/McBopomofo.cpp:376
+#: src/McBopomofo.cpp:394
+#, c++-format
 msgid "Marked: {0}, syllables: {1}, {2}"
 msgstr "選取了「{0}」，注音「{1}」：{2}"
 
-#: src/McBopomofo.cpp:383
+#: src/McBopomofo.cpp:401
 msgid "Bopomofo annotation: variant selectors and PUA blocks in text"
 msgstr "注音字型模式：組字區含有破音字選擇字元及個別注音標記"
 
-#: src/McBopomofo.cpp:385
+#: src/McBopomofo.cpp:403
 msgid "Bopomofo annotation: variant selectors in text"
 msgstr "注音字型模式：組字區含有破音字選擇字元"
 
-#: src/McBopomofo.cpp:387
+#: src/McBopomofo.cpp:405
 msgid "Bopomofo annotation: PUA blocks in text"
 msgstr "注音字型模式：組字區含有個別注音標記"
 
-#: src/McBopomofo.cpp:389
+#: src/McBopomofo.cpp:407
 msgid "Bopomofo annotation support on"
 msgstr "注音字型破音字標記模式開啟"
 
-#: src/McBopomofo.cpp:394
+#: src/McBopomofo.cpp:412
 msgid "cannot add new phrases when Bopomofo annotation is on"
 msgstr "注音字型破音字標記模式開啟時，不能增加新詞"
 
-#: src/McBopomofo.cpp:405
+#: src/McBopomofo.cpp:423
 msgid "# Custom Phrases or Characters."
 msgstr "# 手動加詞資料檔"
 
-#: src/McBopomofo.cpp:407
+#: src/McBopomofo.cpp:425
 msgid ""
 "# See https://github.com/openvanilla/McBopomofo/wiki/使用手冊#手動加詞 for "
 "usage."
@@ -74,26 +78,26 @@ msgstr ""
 "# 使用方式請參考 https://github.com/openvanilla/McBopomofo/wiki/使用手冊#手動"
 "加詞"
 
-#: src/McBopomofo.cpp:409
+#: src/McBopomofo.cpp:427
 msgid ""
 "# Add your phrases and their respective Bopomofo reading below. Use hyphen "
 "(\"-\")"
 msgstr ""
 "# 請在下方加入用戶自訂字詞。每個詞後面要有字詞的讀音。注音音節之間要用減"
 
-#: src/McBopomofo.cpp:410
+#: src/McBopomofo.cpp:428
 msgid "# to connect the Bopomofo syllables."
 msgstr "# 號 (\"-\") 分隔。例如，以下範例加入「小麥注音」一詞："
 
-#: src/McBopomofo.cpp:414 src/McBopomofo.cpp:433
+#: src/McBopomofo.cpp:432 src/McBopomofo.cpp:451
 msgid "# Any line that starts with \"#\" is treated as comment."
 msgstr "# 如果任何一行以 \"#\" 開頭，該行將被當作註解忽略。"
 
-#: src/McBopomofo.cpp:423
+#: src/McBopomofo.cpp:441
 msgid "# Custom Excluded Phrases or Characters."
 msgstr "# 手動刪詞資料檔"
 
-#: src/McBopomofo.cpp:425
+#: src/McBopomofo.cpp:443
 msgid ""
 "# See https://github.com/openvanilla/McBopomofo/wiki/使用手冊#手動刪詞 for "
 "usage."
@@ -101,7 +105,7 @@ msgstr ""
 "# 使用方式請參考 https://github.com/openvanilla/McBopomofo/wiki/使用手冊#手動"
 "刪詞"
 
-#: src/McBopomofo.cpp:427
+#: src/McBopomofo.cpp:445
 msgid ""
 "# For example, the line below will prevent the phrase \"家祠\" from showing "
 "up anywhere:"
@@ -109,154 +113,160 @@ msgstr ""
 "# 如果將下面這行範例加入資料檔中，輸入 \"ㄐㄧㄚ ㄘˊ\" 時不會再看到「家祠」一"
 "詞："
 
-#: src/McBopomofo.cpp:431
+#: src/McBopomofo.cpp:449
 msgid ""
 "# Note that you need to use a hyphen (\"-\") between Bopomofo syllables."
 msgstr "# 請注意，注音音節之間要用減號 (\"-\") 分隔。"
 
-#: src/McBopomofo.cpp:482 src/McBopomofo.cpp:490
+#: src/McBopomofo.cpp:500 src/McBopomofo.cpp:508
 msgid "Half Width Punctuation"
 msgstr "半形標點"
 
-#: src/McBopomofo.cpp:483 src/McBopomofo.cpp:491 src/McBopomofo.cpp:620
+#: src/McBopomofo.cpp:501 src/McBopomofo.cpp:509 src/McBopomofo.cpp:638
 msgid "Full Width Punctuation"
 msgstr "全形標點"
 
-#: src/McBopomofo.cpp:488 src/McBopomofo.cpp:517 src/McBopomofo.cpp:549
-#: src/McBopomofo.cpp:1862 src/mcbopomofo.conf.in.in:3
-#: src/mcbopomofo-addon.conf.in.in:3
+#: src/McBopomofo.cpp:506 src/McBopomofo.cpp:535 src/McBopomofo.cpp:567
+#: src/McBopomofo.cpp:2006 src/mcbopomofo.conf.in.in:2
+#: src/mcbopomofo-addon.conf.in.in:2
 msgid "McBopomofo"
 msgstr "小麥注音"
 
-#: src/McBopomofo.cpp:492
+#: src/McBopomofo.cpp:510
 msgid "Now using half width punctuation"
 msgstr "開始使用半形標點符號"
 
-#: src/McBopomofo.cpp:493
+#: src/McBopomofo.cpp:511
 msgid "Now using full width punctuation"
 msgstr "開始使用全形標點"
 
-#: src/McBopomofo.cpp:510 src/McBopomofo.cpp:626
+#: src/McBopomofo.cpp:528 src/McBopomofo.cpp:644
 msgid "Associated Phrases - On"
 msgstr "聯想詞 - 開啟"
 
-#: src/McBopomofo.cpp:511 src/McBopomofo.cpp:627
+#: src/McBopomofo.cpp:529 src/McBopomofo.cpp:645
 msgid "Associated Phrases - Off"
 msgstr "聯想詞 - 關閉"
 
-#: src/McBopomofo.cpp:519
+#: src/McBopomofo.cpp:537
 msgid "Associated Phrases On"
 msgstr "啟用聯想詞功能"
 
-#: src/McBopomofo.cpp:520
+#: src/McBopomofo.cpp:538
 msgid "Associated Phrases Off"
 msgstr "停用聯想詞功能"
 
-#: src/McBopomofo.cpp:522
+#: src/McBopomofo.cpp:540
 msgid "Now you can use Shift + Enter to insert associated phrases"
 msgstr "您接下來可以使用 Shift + Enter 按鍵輸入聯想詞"
 
-#: src/McBopomofo.cpp:524
+#: src/McBopomofo.cpp:542
 msgid "Associated Phrases is now enabled."
 msgstr "聯想詞功能已開啟"
 
-#: src/McBopomofo.cpp:525
+#: src/McBopomofo.cpp:543
 msgid "Associated Phrases is now disabled."
 msgstr "聯想詞功能已關閉"
 
-#: src/McBopomofo.cpp:542 src/McBopomofo.cpp:640
+#: src/McBopomofo.cpp:560 src/McBopomofo.cpp:660
 msgid "Bopomofo Font Annotation Support - On"
 msgstr "注音字型破音字標記模式 - 開啟"
 
-#: src/McBopomofo.cpp:543 src/McBopomofo.cpp:641
+#: src/McBopomofo.cpp:561 src/McBopomofo.cpp:661
 msgid "Bopomofo Font Annotation Support - Off"
 msgstr "注音字型破音字標記模式 - 關閉"
 
-#: src/McBopomofo.cpp:550
+#: src/McBopomofo.cpp:568
 msgid "Bopomofo Font Annotation Support"
 msgstr "注音字型破音字標記模式"
 
-#: src/McBopomofo.cpp:551
+#: src/McBopomofo.cpp:569
 msgid "Additional Unicode characters are used to support Bopomofo annotations"
 msgstr "模式開啟時，輸出文字可能會包含隱藏的破音字選擇字符或是預組好的注音標記"
 
-#: src/McBopomofo.cpp:553
+#: src/McBopomofo.cpp:571
 msgid "Bopomofo font annotation support now disabled"
 msgstr "破音字標記模式已經關閉"
 
-#: src/McBopomofo.cpp:562
+#: src/McBopomofo.cpp:580
 msgid "Edit User Phrases"
 msgstr "編輯使用者詞彙"
 
-#: src/McBopomofo.cpp:572
+#: src/McBopomofo.cpp:590
 msgid "Edit Excluded Phrases"
 msgstr "編輯排除的詞彙"
 
-#: src/McBopomofo.cpp:619
+#: src/McBopomofo.cpp:637
 msgid "Half width Punctuation"
 msgstr "半形標點"
 
-#: src/McBopomofo.cpp:1030
+#: src/McBopomofo.cpp:1116
 msgid "Boost"
 msgstr "增加權重"
 
-#: src/McBopomofo.cpp:1038
+#: src/McBopomofo.cpp:1124
+#, c++-format
 msgid "Do you want to boost the score of the phrase \"{}\"?"
 msgstr "您要增加「{}」這個詞彙的權重嗎？"
 
-#: src/McBopomofo.cpp:1042
+#: src/McBopomofo.cpp:1128
 msgid "Exclude"
 msgstr "排除"
 
-#: src/McBopomofo.cpp:1049
+#: src/McBopomofo.cpp:1135
+#, c++-format
 msgid "Do you want to exclude the phrase \"{}\"?"
 msgstr "您確定要排除「{}」這個詞彙嗎？"
 
-#: src/McBopomofo.cpp:1053
+#: src/McBopomofo.cpp:1139
 msgid "Cancel"
 msgstr "取消"
 
-#: src/McBopomofo.cpp:1613
+#: src/McBopomofo.cpp:1736
+#, c++-format
 msgid "UTF8 String Length: {0}"
 msgstr "UTF8 字串長度 {0}"
 
-#: src/McBopomofo.cpp:1617
+#: src/McBopomofo.cpp:1740
+#, c++-format
 msgid "Code Point Count: {0}"
 msgstr "總字數 {0}"
 
-#: src/McBopomofo.cpp:1806
+#: src/McBopomofo.cpp:1950
 msgid "User Phrases"
 msgstr "自訂詞庫檔"
 
-#: src/McBopomofo.cpp:1809
+#: src/McBopomofo.cpp:1953
 msgid "Excluded Phrases"
 msgstr "手動刪詞檔"
 
-#: src/McBopomofo.cpp:1812
+#: src/McBopomofo.cpp:1956
 msgid "Phrase Replacement File"
 msgstr "手動換詞檔"
 
-#: src/McBopomofo.cpp:1822
+#: src/McBopomofo.cpp:1966
+#, c++-format
 msgid "line {0}"
 msgstr "第 {0} 行"
 
-#: src/McBopomofo.cpp:1830
+#: src/McBopomofo.cpp:1974
 msgid "Only one column was found."
 msgstr "一行應該有兩欄文字，這行只有一欄"
 
-#: src/McBopomofo.cpp:1833
+#: src/McBopomofo.cpp:1977
 msgid "Illegal NULL character was found."
 msgstr "這一行包含了不合規則的 NULL 字元 (0x00)"
 
-#: src/McBopomofo.cpp:1852
+#: src/McBopomofo.cpp:1996
 msgid "And one more issue."
 msgstr "還有一個問題未顯示"
 
-#: src/McBopomofo.cpp:1854
+#: src/McBopomofo.cpp:1998
+#, c++-format
 msgid "And {0} more issues."
 msgstr "總共還有 {0} 個問題未顯示"
 
-#: src/McBopomofo.cpp:1863
+#: src/McBopomofo.cpp:2007
 msgid "Issues found in user files"
 msgstr "用戶自訂檔案有問題"
 
@@ -352,107 +362,125 @@ msgstr "輸出加上注音標示的 HTML (Ruby Text)"
 msgid "output_hanyu_pinyin"
 msgstr "漢語拼音"
 
-#: src/McBopomofo.h:104
+#: src/McBopomofo.h:97
+msgid "output_taiwan_braille_unicode"
+msgstr "台灣點字 unicode"
+
+#: src/McBopomofo.h:98
+msgid "output_taiwan_braille_ascii"
+msgstr "台灣點字 ascii"
+
+#: src/McBopomofo.h:106
 msgid "Bopomofo Keyboard Layout"
 msgstr "注音鍵盤配置"
 
-#: src/McBopomofo.h:110
+#: src/McBopomofo.h:112
 msgid "Candidate List Layout"
 msgstr "選字窗樣式"
 
-#: src/McBopomofo.h:115
+#: src/McBopomofo.h:117
 msgid "Selection Keys"
 msgstr "選字鍵"
 
-#: src/McBopomofo.h:120
+#: src/McBopomofo.h:122
 msgid "Selection Keys Count"
 msgstr "選字鍵"
 
-#: src/McBopomofo.h:125
+#: src/McBopomofo.h:127
 msgid "Space key chooses candidate"
 msgstr "使用空白鍵選字"
 
-#: src/McBopomofo.h:130
+#: src/McBopomofo.h:132
 msgid "Show Candidate Phrase"
 msgstr "選字時，候選詞起算點"
 
-#: src/McBopomofo.h:135
+#: src/McBopomofo.h:137
 msgid "Move cursor after selection"
 msgstr "選字後自動移動游標"
 
-#: src/McBopomofo.h:146
+#: src/McBopomofo.h:148
 msgid "When Choosing Candidates"
 msgstr "選字時"
 
-#: src/McBopomofo.h:151
+#: src/McBopomofo.h:153
 msgid "ESC key clears entire composing buffer"
 msgstr "ESC 按鍵清除輸入緩衝區的所有內容"
 
-#: src/McBopomofo.h:156
+#: src/McBopomofo.h:158
 msgid "Allow typing in Chinese while Caps Lock is on (like MS IME)"
 msgstr "在大寫鎖定時也能輸入中文（像微軟新注音）"
 
-#: src/McBopomofo.h:161
+#: src/McBopomofo.h:163
 msgid "Shift + Letter Keys"
 msgstr "Shift + 字母按鍵"
 
-#: src/McBopomofo.h:167
+#: src/McBopomofo.h:169
 msgid "Shift + Enter Key triggers associated phrases"
 msgstr "使用 Shift + Enter 按鍵輸入聯想詞"
 
-#: src/McBopomofo.h:172
+#: src/McBopomofo.h:174
 msgid "Repeated punctuation to select next candidate"
 msgstr "重複輸入標點時，輸入下一個候選標點符號"
 
-#: src/McBopomofo.h:177
+#: src/McBopomofo.h:179
 msgid "Control + Enter Key"
 msgstr "Control + Enter 按鍵"
 
-#: src/McBopomofo.h:184
+#: src/McBopomofo.h:186
 msgid "Show the Bopomofo Font Annotation Support toggle in menu"
 msgstr "在輸入法選單中顯示「注音字型破音字標記模式」開關"
 
-#: src/McBopomofo.h:188
+#: src/McBopomofo.h:190
 msgid "Open User Phrase Files With"
 msgstr "開啟自訂詞庫檔案要用"
 
-#: src/McBopomofo.h:193
+#: src/McBopomofo.h:195
 msgid "Add Phrase Hook Path"
 msgstr "加詞腳本路徑"
 
-#: src/McBopomofo.h:199
+#: src/McBopomofo.h:201
 msgid "Run the hook script after adding a phrase"
 msgstr "在加入新詞之後執行加詞腳本"
 
-#: src/McBopomofo.h:203
+#: src/McBopomofo.h:205
 msgid "Enable Half Width Punctuation"
 msgstr "啟用半形標點符號"
 
-#: src/McBopomofo.h:208
+#: src/McBopomofo.h:210
 msgid "Enable Associated Phrases"
 msgstr "啟用聯想詞功能"
 
-#: src/McBopomofo.h:214
+#: src/McBopomofo.h:216
 msgid "Enable Bopomofo Font Annotation Support"
-msgstr ""
+msgstr "注音字型破音字標記模式"
 
-#: src/McBopomofo.h:223
+#: src/McBopomofo.h:225
 msgid "User Data"
 msgstr "打開使用者資料目錄"
+
+#: src/McBopomofo.h:235
+#, fuzzy
+msgid "User Manual"
+msgstr "打開使用者手冊"
+
+#: src/McBopomofo.h:240
+msgid "Web Tools"
+msgstr "打開網頁工具箱"
 
 #: src/DictionaryService.cpp:64 src/DictionaryService.cpp:83
 msgid "Character Information"
 msgstr "字元資訊"
 
 #: src/DictionaryService.cpp:108
+#, c++-format
 msgid "Look up \"{0}\" in {1}"
 msgstr "在{1}尋找「{0}」"
 
-#: src/mcbopomofo-plain.conf.in.in:3
+#: src/mcbopomofo-plain.conf.in.in:2
 msgid "PlainBopomofo"
 msgstr "傳統注音"
 
-#: src/mcbopomofo-addon.conf.in.in:4
+#: src/mcbopomofo-addon.conf.in.in:3
 msgid "McBopomofo Input Method For Fcitx"
 msgstr "Fctix 的小麥注音輸入法"
 
