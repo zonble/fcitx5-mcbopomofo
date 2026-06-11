@@ -133,17 +133,22 @@ TEST(MemoryMappedFileTest, BasicFunctionalities) {
   MemoryMappedFile mf2;
   open_result = mf2.open(temp->path());
   EXPECT_TRUE(open_result);
+  EXPECT_EQ(mf2.length(), kBufSize);
   EXPECT_TRUE(mf2.data() != nullptr);
   EXPECT_TRUE(mf2.isOpen());
 
   MemoryMappedFile mf3(std::move(mf2));
+  EXPECT_EQ(mf2.length(), 0);
   EXPECT_TRUE(mf2.data() == nullptr);
+  EXPECT_EQ(mf3.length(), kBufSize);
   EXPECT_TRUE(mf3.data() != nullptr);
   EXPECT_FALSE(mf2.isOpen());
   EXPECT_TRUE(mf3.isOpen());
 
   MemoryMappedFile mf4 = std::move(mf3);
+  EXPECT_EQ(mf3.length(), 0);
   EXPECT_TRUE(mf3.data() == nullptr);
+  EXPECT_EQ(mf4.length(), kBufSize);
   EXPECT_TRUE(mf4.data() != nullptr);
   EXPECT_FALSE(mf3.isOpen());
   EXPECT_TRUE(mf4.isOpen());
