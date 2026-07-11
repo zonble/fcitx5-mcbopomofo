@@ -33,6 +33,8 @@
 
 #include "Big5Utils/Big5Utils.h"
 #include "BopomofoBraille/Converter.h"
+#include "IcuTransformInputHelper.h"
+#include "Log.h"
 #include "NumberInputHelper.h"
 #include "UTF8Helper.h"
 
@@ -1233,6 +1235,66 @@ bool KeyHandler::handleNumberInput(Key key,
   stateCallback(std::make_unique<InputStates::EmptyIgnoringPrevious>());
   return true;
 }
+
+bool KeyHandler::handleIcuTransformInput(Key key,
+                                   McBopomofo::InputStates::IcuTransformInput* state,
+                                   StateCallback stateCallback,
+                                   KeyHandler::ErrorCallback errorCallback) {
+  if (key.ascii == Key::ESC) {
+    stateCallback(std::make_unique<InputStates::EmptyIgnoringPrevious>());
+    return true;
+  }
+  if (key.isDeleteKeys()) {
+    std::string string = state->string;
+    if (!string.empty()) {
+      string = string.substr(0, string.length() - 1);
+      auto candidates =
+          IcuTransformInputHelper::FillCandidatesWithString(string);
+      auto newState =
+          std::make_unique<InputStates::IcuTransformInput>(string, candidates);
+      stateCallback(std::move(newState));
+      return true;
+    } else {
+      errorCallback();
+      return true;
+    }
+  }
+
+  char selectionKeys[10] = {'!', '@', '#', '$', '%', '^', '&', '*', '(', ')'};
+  for (size_t i = 0; i < state->candidates.size() && i < 10; ++i) {
+    if (key.ascii == selectionKeys[i]) {
+      return false;  
+    }
+  }
+
+  if (isprint(key.ascii)) {
+    if (state->string.length() > 100) {
+      errorCallback();
+      return true;
+    }
+    std::string newString = state->string + key.ascii;
+    auto candidates =
+        IcuTransformInputHelper::FillCandidatesWithString(newString);
+    // FCITX_MCBOPOMOFO_INFO() << "newString: " << newString << ", candidates: " << candidates.size();
+    auto newState =
+        std::make_unique<InputStates::IcuTransformInput>(newString, candidates);
+    stateCallback(std::move(newState));
+    return true;
+  } else if (!state->candidates.empty()) {
+    // If the candidate panel is visible, let it handle the key.
+    return false;
+  } else if (std::isprint(key.ascii)) {
+    // Reject all other printable, non-numeric keys.
+    errorCallback();
+    return true;
+  }
+
+  // If the buffer is empty, all other keys (e.g. cursor keys) exit the state.
+  stateCallback(std::make_unique<InputStates::EmptyIgnoringPrevious>());
+  return true;
+}
+
+
 
 bool KeyHandler::handleBig5(Key key, McBopomofo::InputStates::Big5* state,
                             StateCallback stateCallback,

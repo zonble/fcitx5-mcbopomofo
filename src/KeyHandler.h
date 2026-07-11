@@ -83,6 +83,11 @@ class KeyHandler {
   bool handleNumberInput(Key key, InputStates::NumberInput* state,
                          StateCallback stateCallback,
                          KeyHandler::ErrorCallback errorCallback);
+
+  bool handleIcuTransformInput(
+      Key key, McBopomofo::InputStates::IcuTransformInput* state,
+      StateCallback stateCallback, KeyHandler::ErrorCallback errorCallback);
+
   // Candidate selected. Can assume the context is in a candidate state.
   void candidateSelected(
       const InputStates::ChoosingCandidate::Candidate& candidate,

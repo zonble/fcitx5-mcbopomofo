@@ -50,6 +50,8 @@ set(MCBOPOMOFO_LIB_SOURCES
     TimestampedPath.cpp
     NumberInputHelper.h
     NumberInputHelper.cpp
+    IcuTransformInputHelper.h
+    IcuTransformInputHelper.cpp
 )
 
 # Setup some compiler option that is generally useful and compatible with Fcitx 5 (C++17)
