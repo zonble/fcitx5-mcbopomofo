@@ -1270,7 +1270,6 @@ bool KeyHandler::handleIcuTransformInput(Key key,
     std::string newString = state->string + key.ascii;
     auto candidates =
         IcuTransformInputHelper::FillCandidatesWithString(newString);
-    // FCITX_MCBOPOMOFO_INFO() << "newString: " << newString << ", candidates: " << candidates.size();
     auto newState =
         std::make_unique<InputStates::IcuTransformInput>(newString, candidates);
     stateCallback(std::move(newState));
@@ -1278,10 +1277,6 @@ bool KeyHandler::handleIcuTransformInput(Key key,
   } else if (!state->candidates.empty()) {
     // If the candidate panel is visible, let it handle the key.
     return false;
-  } else if (std::isprint(key.ascii)) {
-    // Reject all other printable, non-numeric keys.
-    errorCallback();
-    return true;
   }
 
   // If the buffer is empty, all other keys (e.g. cursor keys) exit the state.

@@ -33,8 +33,7 @@
 namespace McBopomofo {
 namespace IcuTransformInputHelper {
 
-std::vector<std::string> FillCandidatesWithString(
-    std::string string);
+std::vector<std::string> FillCandidatesWithString(const std::string& string);
 
 }  // namespace IcuTransformInputHelper
 }  // namespace McBopomofo
